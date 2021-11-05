@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import "index";
+
+body {
+  background-image: url("https://store.akamai.steamstatic.com/public/images/v6/colored_body_top.png?v=2");
+  background-repeat: no-repeat;
+  background-color: $color-theme-primary;
+  font-family: $font-light;
+}
+
+[disabled] {
+  pointer-events: none;
+}
