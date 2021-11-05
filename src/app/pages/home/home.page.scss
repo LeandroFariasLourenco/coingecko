@@ -1,0 +1,274 @@
+@import "index";
+
+.home {
+  &-ocean {
+    background-color: #015871;
+    width: 100%;
+    height: 75px;
+    background: radial-gradient(ellipse at center, rgba(255, 254, 234, 1) 0%, rgba(255, 254, 234, 1) 35%, #b7e8eb 100%);
+    position: relative;
+
+    &-title {
+      width: 75%;
+      @include position-centered(absolute);
+    }
+
+    &-wave {
+      background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg);
+      background-size: 100% 100%;
+      background-position: center;
+      width: 6400px;
+      height: 100%;
+      position: absolute;
+      top: 28px;
+      animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite alternate;
+      transform: translate3d(0, 0, 0);
+
+      &:nth-of-type(2) {
+        top: 35px;
+        animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite alternate,
+          swell 7s ease -1.25s alternate infinite;
+        opacity: 1;
+      }
+
+      @keyframes wave {
+        from {
+          margin-left: 0;
+        }
+
+        to {
+          margin-left: -1600px;
+        }
+      }
+
+      @keyframes swell {
+        from {
+          transform: translate3d(0, -25px, 0);
+        }
+
+        to {
+          transform: translate3d(0, 5px, 0);
+        }
+      }
+    }
+  }
+
+  &-news {
+    &-ctn {
+      display: flex;
+      flex-flow: column;
+      gap: 5px;
+    }
+
+    &-article {
+      padding: 10px 15px;
+      display: flex;
+      gap: 10px;
+      margin: 0 auto;
+      width: 95%;
+      position: relative;
+      font-size: 14px;
+
+      &-publisher {
+        width: fit-content;
+        margin: 0 auto;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      &-footer {
+        width: fit-content;
+        display: flex;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        font-size: 15px;
+        gap: 30px;
+
+        i {
+          font-size: 16px;
+        }
+      }
+
+      &.expanded {
+        background-color: $color-theme-primary;
+      }
+
+      &-summary {
+        line-height: 20px;
+        padding: 10px;
+      }
+
+      &-full {
+        text-align: center;
+        display: block;
+        color: black;
+        font-family: $font-bold;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      &-details {
+        width: 95%;
+        margin: 0 auto;
+        overflow: hidden;
+        background-color: rgba($color-theme-primary, 0.15);
+        transition: max-height 650ms;
+        font-size: 14px;
+
+        &.visible {
+          max-height: 600px;
+        }
+
+        &:not(.visible) {
+          max-height: 0;
+        }
+      }
+
+      &-view {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 14px;
+        padding: 5px 30px;
+      }
+
+      &-title {
+        font-size: 14px;
+      }
+
+      &-image {
+        width: 80px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &-title {
+    font-family: $font-bold;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    i {
+      font-weight: bold;
+    }
+  }
+
+  &-trending {
+    padding: 0 10px;
+
+    &-coin {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      flex-flow: column;
+      background-color: white;
+      padding: 10px 5px;
+
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      &-symbol {
+        font-family: $font-bold;
+        font-size: 13px;
+      }
+
+      &-position {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+
+      &-icon {
+        width: 25px;
+      }
+    }
+  }
+
+  &-exchanges {
+    padding: 20px;
+
+    &-exchange {
+      padding: 10px 20px 15px;
+      border: 1px solid black;
+
+      &-rating {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &-name {
+        font-size: 20px;
+      }
+
+      &-view {
+        margin-top: 20px;
+        display: block;
+        background-color: $color-theme-primary;
+        color: white;
+        font-family: $font-bold;
+        width: 75%;
+        padding: 5px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &-info {
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      &-footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+      }
+
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+
+  &-showcase {
+    background-color: rgba($color-theme-primary, 0.5);
+    padding: 10px 10px;
+    margin-top: 20px;
+
+    &-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 30px;
+      justify-items: center;
+    }
+
+    &-coin {
+      width: 90px;
+      padding: 6px 2px;
+      @include flex-centered();
+      flex-flow: column;
+
+      &-name {
+        margin-top: 10px;
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+
+      &-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}

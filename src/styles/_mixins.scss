@@ -4,8 +4,8 @@
   align-items: center;
 }
 
-@mixin fixed-centered() {
-  position: fixed;
+@mixin position-centered($position) {
+  position: $position;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

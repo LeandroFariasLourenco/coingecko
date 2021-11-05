@@ -2,12 +2,17 @@
 @import "index";
 
 body {
-  background-image: url("https://store.akamai.steamstatic.com/public/images/v6/colored_body_top.png?v=2");
-  background-repeat: no-repeat;
-  background-color: $color-theme-primary;
   font-family: $font-light;
+  overflow-x: hidden;
 }
 
 [disabled] {
   pointer-events: none;
+}
+
+.card {
+  box-shadow: 0 0 5px $color-theme-secondary;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
 }

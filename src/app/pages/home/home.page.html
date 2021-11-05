@@ -1,0 +1,136 @@
+<div class="home">
+  <div class="home-ocean">
+    <h3 class="home-title home-ocean-title">
+      Around the crypto world <i class="fa fa-newspaper-o"></i>
+    </h3>
+    <div class="home-ocean-wave"></div>
+    <div class="home-ocean-wave"></div>
+  </div>
+
+  <div class="home-news">
+    <swiper [config]="articleSwiperConfig" *ngIf="!loading.news" (slideChange)="resetExpandedArticle()">
+      <ng-container *ngFor="let article of articles; index as indice">
+        <div class="home-news-ctn" *ngIf="indice % 4 === 0">
+          <ng-template [ngTemplateOutlet]="newsTemplate" [ngTemplateOutletContext]="{ $implicit: articles[indice] }">
+          </ng-template>
+          <ng-template *ngIf="articles[indice + 1]" [ngTemplateOutlet]="newsTemplate"
+            [ngTemplateOutletContext]="{ $implicit: articles[indice + 1] }"></ng-template>
+          <ng-template *ngIf="articles[indice + 2]" [ngTemplateOutlet]="newsTemplate"
+            [ngTemplateOutletContext]="{ $implicit: articles[indice + 2] }"></ng-template>
+          <ng-template *ngIf="articles[indice + 3]" [ngTemplateOutlet]="newsTemplate"
+            [ngTemplateOutletContext]="{ $implicit: articles[indice + 3] }"></ng-template>
+        </div>
+      </ng-container>
+      <ng-template #newsTemplate let-article>
+        <div class="home-news-article card" [ngClass]="{
+          expanded: expandedArticle?._id === article._id
+        }">
+          <img [src]="article.media" [alt]="article.title" class="home-news-article-image">
+          <div class="home-news-article-overlay"></div>
+          <div class="home-news-article-content">
+            <h4 class="home-news-article-title">{{ article.title }}</h4>
+            <span class="home-news-article-date">
+              {{ (article.published_date | replace : ['2021-', '']) | replace : ['-','/'] }}
+            </span>
+          </div>
+
+          <button class="home-news-article-view" (click)="toggleArticleDetails(article)">
+            <ng-container *ngIf="expandedArticle?._id !== article._id else notExpandedTemplate">
+              <i class="fa fa-arrow-down"></i>
+            </ng-container>
+            <ng-template #notExpandedTemplate>
+              <i class="fa fa-arrow-up"></i>
+            </ng-template>
+          </button>
+
+        </div>
+        <div class="home-news-article-details card" [ngClass]="{
+          visible: expandedArticle?._id === article._id
+        }">
+          <p class="home-news-article-summary">{{ article.summary }}</p>
+          <div class="home-news-article-footer">
+            <span class="home-news-article-author">
+              <i class="fa fa-user"></i>
+              {{ article.author }}
+            </span>
+
+            <span class="home-news-article-twitter">
+              <i class="fa fa-twitter"></i>
+              <a href="{{ article.twitter_account }}" target="_blank"></a>
+            </span>
+          </div>
+
+          <span class="home-news-article-publisher">
+            <i class="fa fa-newspaper-o"></i>
+            {{ article.rights }}
+          </span>
+
+          <a class="home-news-article-full" [href]="article.link" target="_blank">
+            Full story
+            <i class="fa fa-external-link"></i>
+          </a>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+
+  <div class="home-trending">
+    <h3 class="home-title">Trending coins <i class="fa fa-line-chart"></i></h3>
+    <swiper [config]="trendingSwiperConfig" class="home-trending-coins">
+      <div class="home-trending-coin card" *ngFor="let coin of trendingCoins">
+        <div class="home-trending-coin-header">
+          <span class="home-trending-coin-symbol">{{ coin.item.symbol }}</span>
+          <img [src]="coin.item.large" [alt]="coin.item.name" class="home-trending-coin-icon">
+        </div>
+        <span class="home-trending-coin-position">{{ coin.item.market_cap_rank }}º</span>
+      </div>
+    </swiper>
+  </div>
+
+  <div class="home-exchanges">
+    <swiper [config]="exchangesSwiperConfig">
+      <div class="home-exchanges-exchange card" *ngFor="let exchange of exchanges">
+        <div class="home-exchanges-exchange-header">
+          <h4 class="home-exchanges-exchange-name">{{ exchange.name }}</h4>
+          <img [src]="exchange.image" [alt]="exchange.name" class="home-exchanges-exchange-logo">
+        </div>
+
+        <div class="home-exchanges-exchange-info">
+          <strong>Trust rank:</strong> {{ exchange.trust_score_rank }}º
+        </div>
+        <div class="home-exchanges-exchange-info">
+          <strong>Volume 24hr BTC:</strong> {{ exchange.trade_volume_24h_btc }}
+        </div>
+
+        <div class="home-exchanges-exchange-footer">
+          <div class="home-exchanges-exchange-info">
+            <strong>Location:</strong> {{ exchange.country }}
+          </div>
+          <div class="home-exchanges-exchange-info">
+            <strong>Founded:</strong> {{ exchange.year_established }}
+          </div>
+        </div>
+
+        <div class="home-exchanges-exchange-rating">
+          <ng-container *ngFor="let rating of [].constructor(exchange.trust_score); index as indice">
+            <ng-container *ngIf="indice < exchange.trust_score">
+              <i class="fa fa-star"></i>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <a [href]="exchange.url" target="_blank" class="home-exchanges-exchange-view">View more</a>
+      </div>
+    </swiper>
+  </div>
+
+  <div class="home-showcase">
+    <h3 class="home-title">Most viewed <i class="fa fa-eye"></i></h3>
+    <div class="home-showcase-grid">
+      <div class="home-showcase-coin card" *ngFor="let coin of coinsList">
+        <img class="home-showcase-coin-icon" [src]="coin.icon" [alt]="coin.name">
+        <span class="home-showcase-coin-name">{{ coin.symbol }}</span>
+      </div>
+    </div>
+  </div>
+</div>

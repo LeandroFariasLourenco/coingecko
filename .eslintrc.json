@@ -26,6 +26,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "no-underscore-dangle": "off",
         "no-shadow": "off",
         "@typescript-eslint/naming-convention": "off",
         "rxjs/no-ignored-error": "error",

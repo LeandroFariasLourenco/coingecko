@@ -1,7 +1,7 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "consoleLog"
+  name: 'consoleLog'
 })
 export class ConsoleLogPipe implements PipeTransform {
   constructor() { }
